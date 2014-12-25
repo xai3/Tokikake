@@ -9,7 +9,8 @@
 /* Begin PBXBuildFile section */
 		4BEEACA21A4BAC8B00F70A76 /* Tokikake.h in Headers */ = {isa = PBXBuildFile; fileRef = 4BEEACA11A4BAC8B00F70A76 /* Tokikake.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4BEEACA81A4BAC8B00F70A76 /* Tokikake.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BEEAC9C1A4BAC8B00F70A76 /* Tokikake.framework */; };
-		4BEEACAF1A4BAC8B00F70A76 /* TokikakeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BEEACAE1A4BAC8B00F70A76 /* TokikakeTests.swift */; };
+		4BEEACAF1A4BAC8B00F70A76 /* BasicTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BEEACAE1A4BAC8B00F70A76 /* BasicTests.swift */; };
+		4BEEACBB1A4BACAE00F70A76 /* Deferred.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BEEACBA1A4BACAE00F70A76 /* Deferred.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -28,7 +29,8 @@
 		4BEEACA11A4BAC8B00F70A76 /* Tokikake.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Tokikake.h; sourceTree = "<group>"; };
 		4BEEACA71A4BAC8B00F70A76 /* TokikakeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TokikakeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4BEEACAD1A4BAC8B00F70A76 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4BEEACAE1A4BAC8B00F70A76 /* TokikakeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokikakeTests.swift; sourceTree = "<group>"; };
+		4BEEACAE1A4BAC8B00F70A76 /* BasicTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicTests.swift; sourceTree = "<group>"; };
+		4BEEACBA1A4BACAE00F70A76 /* Deferred.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Deferred.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +74,7 @@
 			isa = PBXGroup;
 			children = (
 				4BEEACA11A4BAC8B00F70A76 /* Tokikake.h */,
+				4BEEACBA1A4BACAE00F70A76 /* Deferred.swift */,
 				4BEEAC9F1A4BAC8B00F70A76 /* Supporting Files */,
 			);
 			path = Tokikake;
@@ -88,7 +91,7 @@
 		4BEEACAB1A4BAC8B00F70A76 /* TokikakeTests */ = {
 			isa = PBXGroup;
 			children = (
-				4BEEACAE1A4BAC8B00F70A76 /* TokikakeTests.swift */,
+				4BEEACAE1A4BAC8B00F70A76 /* BasicTests.swift */,
 				4BEEACAC1A4BAC8B00F70A76 /* Supporting Files */,
 			);
 			path = TokikakeTests;
@@ -209,6 +212,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4BEEACBB1A4BACAE00F70A76 /* Deferred.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -216,7 +220,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4BEEACAF1A4BAC8B00F70A76 /* TokikakeTests.swift in Sources */,
+				4BEEACAF1A4BAC8B00F70A76 /* BasicTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -319,27 +323,32 @@
 		4BEEACB31A4BAC8B00F70A76 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = Tokikake/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
 		4BEEACB41A4BAC8B00F70A76 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = Tokikake/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
