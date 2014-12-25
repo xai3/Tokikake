@@ -11,6 +11,8 @@
 		4BEEACA81A4BAC8B00F70A76 /* Tokikake.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BEEAC9C1A4BAC8B00F70A76 /* Tokikake.framework */; };
 		4BEEACAF1A4BAC8B00F70A76 /* BasicTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BEEACAE1A4BAC8B00F70A76 /* BasicTests.swift */; };
 		4BEEACBB1A4BACAE00F70A76 /* Deferred.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BEEACBA1A4BACAE00F70A76 /* Deferred.swift */; };
+		4BEEACF21A4C04E200F70A76 /* NSURLConnection+Deferred.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BEEACF11A4C04E200F70A76 /* NSURLConnection+Deferred.swift */; };
+		4BEEACF41A4C082C00F70A76 /* NSURLConnectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BEEACF31A4C082C00F70A76 /* NSURLConnectionTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -31,6 +33,8 @@
 		4BEEACAD1A4BAC8B00F70A76 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4BEEACAE1A4BAC8B00F70A76 /* BasicTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicTests.swift; sourceTree = "<group>"; };
 		4BEEACBA1A4BACAE00F70A76 /* Deferred.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Deferred.swift; sourceTree = "<group>"; };
+		4BEEACF11A4C04E200F70A76 /* NSURLConnection+Deferred.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSURLConnection+Deferred.swift"; sourceTree = "<group>"; };
+		4BEEACF31A4C082C00F70A76 /* NSURLConnectionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSURLConnectionTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +79,7 @@
 			children = (
 				4BEEACA11A4BAC8B00F70A76 /* Tokikake.h */,
 				4BEEACBA1A4BACAE00F70A76 /* Deferred.swift */,
+				4BEEACF11A4C04E200F70A76 /* NSURLConnection+Deferred.swift */,
 				4BEEAC9F1A4BAC8B00F70A76 /* Supporting Files */,
 			);
 			path = Tokikake;
@@ -92,6 +97,7 @@
 			isa = PBXGroup;
 			children = (
 				4BEEACAE1A4BAC8B00F70A76 /* BasicTests.swift */,
+				4BEEACF31A4C082C00F70A76 /* NSURLConnectionTests.swift */,
 				4BEEACAC1A4BAC8B00F70A76 /* Supporting Files */,
 			);
 			path = TokikakeTests;
@@ -213,6 +219,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4BEEACBB1A4BACAE00F70A76 /* Deferred.swift in Sources */,
+				4BEEACF21A4C04E200F70A76 /* NSURLConnection+Deferred.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -220,6 +227,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4BEEACF41A4C082C00F70A76 /* NSURLConnectionTests.swift in Sources */,
 				4BEEACAF1A4BAC8B00F70A76 /* BasicTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
