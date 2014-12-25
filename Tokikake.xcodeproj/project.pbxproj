@@ -1,0 +1,410 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		4BEEACA21A4BAC8B00F70A76 /* Tokikake.h in Headers */ = {isa = PBXBuildFile; fileRef = 4BEEACA11A4BAC8B00F70A76 /* Tokikake.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4BEEACA81A4BAC8B00F70A76 /* Tokikake.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BEEAC9C1A4BAC8B00F70A76 /* Tokikake.framework */; };
+		4BEEACAF1A4BAC8B00F70A76 /* TokikakeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BEEACAE1A4BAC8B00F70A76 /* TokikakeTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		4BEEACA91A4BAC8B00F70A76 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4BEEAC931A4BAC8B00F70A76 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4BEEAC9B1A4BAC8B00F70A76;
+			remoteInfo = Tokikake;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		4BEEAC9C1A4BAC8B00F70A76 /* Tokikake.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Tokikake.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4BEEACA01A4BAC8B00F70A76 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4BEEACA11A4BAC8B00F70A76 /* Tokikake.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Tokikake.h; sourceTree = "<group>"; };
+		4BEEACA71A4BAC8B00F70A76 /* TokikakeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TokikakeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4BEEACAD1A4BAC8B00F70A76 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4BEEACAE1A4BAC8B00F70A76 /* TokikakeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokikakeTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		4BEEAC981A4BAC8B00F70A76 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4BEEACA41A4BAC8B00F70A76 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4BEEACA81A4BAC8B00F70A76 /* Tokikake.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		4BEEAC921A4BAC8B00F70A76 = {
+			isa = PBXGroup;
+			children = (
+				4BEEAC9E1A4BAC8B00F70A76 /* Tokikake */,
+				4BEEACAB1A4BAC8B00F70A76 /* TokikakeTests */,
+				4BEEAC9D1A4BAC8B00F70A76 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		4BEEAC9D1A4BAC8B00F70A76 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				4BEEAC9C1A4BAC8B00F70A76 /* Tokikake.framework */,
+				4BEEACA71A4BAC8B00F70A76 /* TokikakeTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		4BEEAC9E1A4BAC8B00F70A76 /* Tokikake */ = {
+			isa = PBXGroup;
+			children = (
+				4BEEACA11A4BAC8B00F70A76 /* Tokikake.h */,
+				4BEEAC9F1A4BAC8B00F70A76 /* Supporting Files */,
+			);
+			path = Tokikake;
+			sourceTree = "<group>";
+		};
+		4BEEAC9F1A4BAC8B00F70A76 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				4BEEACA01A4BAC8B00F70A76 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		4BEEACAB1A4BAC8B00F70A76 /* TokikakeTests */ = {
+			isa = PBXGroup;
+			children = (
+				4BEEACAE1A4BAC8B00F70A76 /* TokikakeTests.swift */,
+				4BEEACAC1A4BAC8B00F70A76 /* Supporting Files */,
+			);
+			path = TokikakeTests;
+			sourceTree = "<group>";
+		};
+		4BEEACAC1A4BAC8B00F70A76 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				4BEEACAD1A4BAC8B00F70A76 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		4BEEAC991A4BAC8B00F70A76 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4BEEACA21A4BAC8B00F70A76 /* Tokikake.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		4BEEAC9B1A4BAC8B00F70A76 /* Tokikake */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4BEEACB21A4BAC8B00F70A76 /* Build configuration list for PBXNativeTarget "Tokikake" */;
+			buildPhases = (
+				4BEEAC971A4BAC8B00F70A76 /* Sources */,
+				4BEEAC981A4BAC8B00F70A76 /* Frameworks */,
+				4BEEAC991A4BAC8B00F70A76 /* Headers */,
+				4BEEAC9A1A4BAC8B00F70A76 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Tokikake;
+			productName = Tokikake;
+			productReference = 4BEEAC9C1A4BAC8B00F70A76 /* Tokikake.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		4BEEACA61A4BAC8B00F70A76 /* TokikakeTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4BEEACB51A4BAC8B00F70A76 /* Build configuration list for PBXNativeTarget "TokikakeTests" */;
+			buildPhases = (
+				4BEEACA31A4BAC8B00F70A76 /* Sources */,
+				4BEEACA41A4BAC8B00F70A76 /* Frameworks */,
+				4BEEACA51A4BAC8B00F70A76 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4BEEACAA1A4BAC8B00F70A76 /* PBXTargetDependency */,
+			);
+			name = TokikakeTests;
+			productName = TokikakeTests;
+			productReference = 4BEEACA71A4BAC8B00F70A76 /* TokikakeTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		4BEEAC931A4BAC8B00F70A76 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0610;
+				ORGANIZATIONNAME = yukiame;
+				TargetAttributes = {
+					4BEEAC9B1A4BAC8B00F70A76 = {
+						CreatedOnToolsVersion = 6.1;
+					};
+					4BEEACA61A4BAC8B00F70A76 = {
+						CreatedOnToolsVersion = 6.1;
+					};
+				};
+			};
+			buildConfigurationList = 4BEEAC961A4BAC8B00F70A76 /* Build configuration list for PBXProject "Tokikake" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 4BEEAC921A4BAC8B00F70A76;
+			productRefGroup = 4BEEAC9D1A4BAC8B00F70A76 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				4BEEAC9B1A4BAC8B00F70A76 /* Tokikake */,
+				4BEEACA61A4BAC8B00F70A76 /* TokikakeTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		4BEEAC9A1A4BAC8B00F70A76 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4BEEACA51A4BAC8B00F70A76 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		4BEEAC971A4BAC8B00F70A76 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4BEEACA31A4BAC8B00F70A76 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4BEEACAF1A4BAC8B00F70A76 /* TokikakeTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		4BEEACAA1A4BAC8B00F70A76 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4BEEAC9B1A4BAC8B00F70A76 /* Tokikake */;
+			targetProxy = 4BEEACA91A4BAC8B00F70A76 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		4BEEACB01A4BAC8B00F70A76 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		4BEEACB11A4BAC8B00F70A76 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		4BEEACB31A4BAC8B00F70A76 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = Tokikake/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		4BEEACB41A4BAC8B00F70A76 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = Tokikake/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		4BEEACB61A4BAC8B00F70A76 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = TokikakeTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		4BEEACB71A4BAC8B00F70A76 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = TokikakeTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		4BEEAC961A4BAC8B00F70A76 /* Build configuration list for PBXProject "Tokikake" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4BEEACB01A4BAC8B00F70A76 /* Debug */,
+				4BEEACB11A4BAC8B00F70A76 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4BEEACB21A4BAC8B00F70A76 /* Build configuration list for PBXNativeTarget "Tokikake" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4BEEACB31A4BAC8B00F70A76 /* Debug */,
+				4BEEACB41A4BAC8B00F70A76 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		4BEEACB51A4BAC8B00F70A76 /* Build configuration list for PBXNativeTarget "TokikakeTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4BEEACB61A4BAC8B00F70A76 /* Debug */,
+				4BEEACB71A4BAC8B00F70A76 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 4BEEAC931A4BAC8B00F70A76 /* Project object */;
+}
