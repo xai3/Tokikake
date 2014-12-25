@@ -82,3 +82,7 @@ deferred.promise
       // do something
     }
 ```
+
+## Examples
+
+Other examples habe been described in  [TokikakeTests.swift](https://github.com/yukiasai/Tokikake/blob/master/TokikakeTests/BasicTests.swift)
