@@ -65,7 +65,7 @@ dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0))
 }
 
 deferred.promise
-    .progress { progress in
+    .progress { (progress: Float) in
         // do something
     }
     .done { value in
@@ -102,7 +102,7 @@ deferred.promise
     .fail { (error: Int) in
       // do something
     }
-    .finally {
+    .always {
       // do something
     }
 ```
@@ -124,11 +124,11 @@ dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0))
 }
 
 Promise.when(deferred1.promise, deferred2.promise)
-    .progress { count, total in
+    .progress { (count: Int, total: Int) in
     }
-    .done { values in
+    .done { (values: [String]) in
     }
-    .fail { error in
+    .fail { (error: String) in
     }
     .always {
     }
