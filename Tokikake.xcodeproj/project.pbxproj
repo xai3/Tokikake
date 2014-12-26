@@ -412,6 +412,7 @@
 				4BEEACB41A4BAC8B00F70A76 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		4BEEACB51A4BAC8B00F70A76 /* Build configuration list for PBXNativeTarget "TokikakeTests" */ = {
 			isa = XCConfigurationList;
@@ -420,6 +421,7 @@
 				4BEEACB71A4BAC8B00F70A76 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
