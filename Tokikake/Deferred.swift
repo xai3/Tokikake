@@ -10,16 +10,14 @@ import Foundation
 
 internal var queue: dispatch_queue_t = dispatch_queue_create("me.yukia.Tokikake", nil)
 
-public class Deferred<V, E> {
-    
-    private var _promise: Promise<V, E>
-    
-    public var promise: Promise<V, E> {
+public class Deferred<V, E, P> {
+    private var _promise: Promise<V, E, P>
+    public var promise: Promise<V, E, P> {
         get { return _promise }
     }
     
     public init() {
-        _promise = Promise<V, E>()
+        _promise = Promise<V, E, P>()
     }
     
     public func fulfill(value: V) -> Self {
@@ -32,20 +30,28 @@ public class Deferred<V, E> {
         return self
     }
     
+    public func notify(progress: P) -> Self {
+        promise.notify(progress)
+        return self
+    }
 }
 
 private enum State {
-    
     case Fulfilled
     case Rejected
     case Pending
-    case Cancelled
-    
 }
 
-public class Promise<V, E> {
+public class Promise<V, E, P> {
+    
+    public typealias BulkProgress = (Int, Int)
     
     typealias Handler = () -> ()
+    
+    typealias DoneHandler = (V) -> ()
+    typealias FailHandler = (E) -> ()
+    typealias ThenHandler = (V?, E?) -> ()
+    typealias ProgressHandler = (P) -> ()
     
     var value: V?
     var error: E?
@@ -55,166 +61,157 @@ public class Promise<V, E> {
     public var fulfilled: Bool { return state == .Fulfilled }
     public var rejected: Bool { return state == .Rejected }
     public var pending: Bool { return state == .Pending }
-    
-    private var pendingHandler: Handler?
+   
+    private var pendingHandlers: [Handler] = []
+    private var progressHandlers: [ProgressHandler] = []
     
     internal init() {
     }
     
-    internal func fulfill(v: V) {
-        if state != .Pending {
-            return
+    internal func fulfill(value: V) {
+        dispatch_async(queue) {
+            if !self.pending {
+                return
+            }
+            self.value = value
+            self.state = .Fulfilled
+            
+            for handler in self.pendingHandlers {
+                handler()
+            }
+            self.pendingHandlers.removeAll()
         }
-        value = v
-        state = .Fulfilled
-        handleIfNeeded()
     }
     
-    internal func reject(e: E) {
-        if state != .Pending {
-            return
+    internal func reject(error: E) {
+        dispatch_async(queue) {
+            if !self.pending {
+                return
+            }
+            self.error = error
+            self.state = .Rejected
+            
+            for handler in self.pendingHandlers {
+                handler()
+            }
+            self.pendingHandlers.removeAll()
         }
-        error = e
-        state = .Rejected
-        handleIfNeeded()
+    }
+    
+    internal func notify(progress: P) {
+        dispatch_async(queue) {
+            if !self.pending {
+                return
+            }
+            
+            for handler in self.progressHandlers {
+                handler(progress)
+            }
+        }
     }
     
     private func handle(handler: Handler) {
         dispatch_async(queue) {
-            if self.state == .Pending {
-                self.pendingHandler = handler
+            if self.pending {
+                self.pendingHandlers.append(handler)
                 return
             }
             handler()
         }
     }
     
-    private func handleIfNeeded() {
-        dispatch_async(queue) {
-            self.pendingHandler?()
-            self.pendingHandler = nil
-        }
-    }
-    
     // MARK: Done
     
-    public func done<V2>(clousure: (V) -> V2) -> Promise<V2, E> {
-        let deferred = Deferred<V2, E>()
-        self.handle {
-            switch self.state {
-            case .Fulfilled:
-                let value2 = clousure(self.value!)
-                deferred.fulfill(value2)
-            case .Rejected:
-                deferred.reject(self.error!)
-            default:
-                break
+    public func done(handler: DoneHandler) -> Self {
+        handle {
+            if self.fulfilled {
+                handler(self.value!)
             }
         }
-        return deferred.promise
+        return self
     }
     
     // MARK: Fail
     
-    public func fail<E2>(clousure: (E) -> E2) -> Promise<V, E2> {
-        let deferred = Deferred<V, E2>()
-        self.handle {
-            switch self.state {
-            case .Fulfilled:
-                deferred.fulfill(self.value!)
-            case .Rejected:
-                let error2 = clousure(self.error!)
-                deferred.reject(error2)
-            default:
-                break
+    public func fail(handler: FailHandler) -> Self {
+        handle {
+            if self.rejected {
+                handler(self.error!)
             }
         }
-        return deferred.promise
+        return self
+    }
+    
+    // MARK: Progress
+    
+    public func progress(handler: ProgressHandler) -> Self {
+        dispatch_async(queue) {
+            self.progressHandlers.append(handler)
+        }
+        return self
+    }
+    
+    // MARK: Always
+    
+    public func always(handler: () -> ()) -> Self {
+        handle {
+            handler()
+        }
+        return self
     }
     
     // MARK: Then
     
-    public func then<V2, E2>(clousure: (V?, E?) -> (value2: V2?, error2: E2?)) -> Promise<V2, E2> {
-        let deferred = Deferred<V2, E2>()
-        self.handle {
-            switch self.state {
-            case .Fulfilled:
-                if let value2 = clousure(self.value!, nil).value2 {
-                    deferred.fulfill(value2)
-                }
-            case .Rejected:
-                if let error2 = clousure(nil, self.error!).error2 {
-                    deferred.reject(error2)
-                }
-            default:
-                break
-            }
+    public func then(handler: ThenHandler) -> Self {
+        handle {
+            handler(self.value, self.error)
         }
-        return deferred.promise
+        return self
     }
     
-    public func then(clousure: (V?, E?) -> Void) -> Promise<V, E> {
-        let deferred = Deferred<V, E>()
-        self.handle {
-            switch self.state {
-            case .Fulfilled:
-                clousure(self.value!, nil)
-                deferred.fulfill(self.value!)
-            case .Rejected:
-                clousure(nil, self.error!)
-                deferred.reject(self.error!)
-            default:
-                break;
-            }
-        }
-        return deferred.promise
-    }
-    
-    public func then<V2, E2>(clousure: (V?, E?) -> Promise<V2, E2>) -> Promise<V2, E2> {
-        let deferred = Deferred<V2, E2>()
-        self.handle {
-            let promise = clousure(self.value, self.error)
+    public func then<V2, E2, P2>(handler: (V?, E?) -> Promise<V2, E2, P2>) -> Promise<V2, E2, P2> {
+        let deferred = Deferred<V2, E2, P2>()
+        
+        handle {
+            let promise = handler(self.value, self.error)
             promise
-                .done { value2 -> Void in
-                    deferred.fulfill(value2)
+                .progress { progress in
+                    deferred.notify(progress)
                     return
                 }
-                .fail { error -> Void in
+                .done { value in
+                    deferred.fulfill(value)
+                    return
+                }
+                .fail { error in
                     deferred.reject(error)
                     return
-            }
-            return
+                }
         }
-        return deferred.promise
-    }
-    
-    // MARK: Finally
-    
-    public func finally(clousure: () -> ()) -> Promise<V, E> {
-        let deferred = Deferred<V, E>()
-        self.handle {
-            clousure()
-        }
+        
         return deferred.promise
     }
     
     // MARK: When
     
-    public class func when(promises: Promise<V, E> ...) -> Promise<[V], E> {
+    public class func when(promises: Promise<V, E, P> ...) -> Promise<[V], E, BulkProgress> {
         return when(promises)
     }
     
-    public class func when(promises: [Promise<V, E>]) -> Promise<[V], E> {
-        let deferred = Deferred<[V], E>()
+    public class func when(promises: [Promise<V, E, P>]) -> Promise<[V], E, BulkProgress> {
+        let deferred = Deferred<[V], E, BulkProgress>()
         let totalCount = promises.count
         var successCount = 0
         for promise in promises {
             promise
                 .done { value -> Void in
                     sync(self) {
-                        if ++successCount < totalCount {
+                        successCount++
+                        deferred.notify((successCount, totalCount))
+                        if successCount < totalCount {
                             return
                         }
+                        
                         let values = promises.map { $0.value! }
                         deferred.fulfill(values)
                         return
@@ -226,7 +223,7 @@ public class Promise<V, E> {
                         //TODO: Cancel all
                         return
                     }
-            }
+                }
         }
         return deferred.promise
     }

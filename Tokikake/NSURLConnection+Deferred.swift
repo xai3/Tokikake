@@ -12,8 +12,8 @@ import Tokikake
 
 extension NSURLConnection {
     
-    public class func request(url: String, _ method: String, _ body: NSData? = nil) -> Promise<NSData, NSError> {
-        let deferred = Deferred<NSData, NSError>()
+    public class func request(url: String, _ method: String, _ body: NSData? = nil) -> Promise<NSData, NSError, Float> {
+        let deferred = Deferred<NSData, NSError, Float>()
         
         let request = NSMutableURLRequest()
         request.URL = NSURL(string: url)!

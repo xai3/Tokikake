@@ -21,110 +21,106 @@ class BasicTests: XCTestCase {
         super.tearDown()
     }
     
+    func testSyncDone() {
+        Deferred<String, String, Int>().fulfill("ok").promise
+            .done { value in
+                XCTAssertEqual(value, "ok")
+            }
+            .fail { error in
+                XCTFail()
+            }
+            .always {
+            }
+    }
+    
+    func testSyncFail() {
+        Deferred<String, String, Int>().reject("ng").promise
+            .done { value in
+                XCTAssertEqual(value, "ok")
+            }
+            .fail { error in
+                XCTFail()
+            }
+            .always {
+        }
+    }
+    
     func testDone() {
         let ex = self.expectationWithDescription("wait")
         
-        let deferred = Deferred<String, String>()
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)) {
-            sleep(1)
+        let deferred = Deferred<String, String, Int>()
+        performInBackground(after: 0.1) {
             deferred.fulfill("ok")
+            return
         }
         
         deferred.promise
-            .done { value -> Void in
+            .done { value in
                 XCTAssertEqual(value, "ok")
             }
-            .fail { error -> Void in
+            .fail { error in
                 XCTFail()
             }
-            .finally {
+            .always {
                 ex.fulfill()
-        }
+            }
         
-        self.waitForExpectationsWithTimeout(10) { error in
+        self.waitForExpectationsWithTimeout(100) { error in
             XCTAssertNil(error)
         }
     }
-    
-    func testDoneChain() {
-        let ex = self.expectationWithDescription("wait")
-        
-        let deferred = Deferred<String, String>()
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)) {
-            sleep(1)
-            deferred.fulfill("ok")
-        }
-        
-        deferred.promise
-            .done { value -> Int in
-                XCTAssertEqual(value, "ok")
-                return 1
-            }
-            .done { value -> Void in
-                XCTAssertEqual(value, 1)
-            }
-            .fail { error -> Void in
-                XCTFail()
-            }
-            .finally {
-                ex.fulfill()
-        }
-        
-        self.waitForExpectationsWithTimeout(10) { error in
-            XCTAssertNil(error)
-        }
-    }
-    
+   
     func testFail() {
         let ex = self.expectationWithDescription("wait")
         
-        let deferred = Deferred<String, String>()
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)) {
-            sleep(1)
+        let deferred = Deferred<String, String, Float>()
+        performInBackground(after: 0.1) {
             deferred.reject("ng")
+            return
         }
         
         deferred.promise
-            .done { value -> Void in
+            .done { value in
                 XCTFail()
             }
-            .fail { error -> Void in
+            .fail { error in
                 XCTAssertEqual(error, "ng")
             }
-            .finally {
+            .always {
                 ex.fulfill()
-        }
+            }
         
         self.waitForExpectationsWithTimeout(10) { error in
             XCTAssertNil(error)
         }
     }
     
-    func testFailChain() {
+    func testProgress() {
         let ex = self.expectationWithDescription("wait")
         
-        let deferred = Deferred<String, String>()
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)) {
-            sleep(1)
-            deferred.reject("ng")
+        let deferred = Deferred<String, String, Int>()
+        performInBackground(after: 0.1) {
+            for i in 0..<10 {
+                deferred.notify(i)
+            }
+            deferred.fulfill("ok")
         }
         
         deferred.promise
-            .done { value -> Void in
+            .progress { progress in
+                println("progress: " + String(progress))
+            }
+            .done { value in
+                XCTAssertEqual(value, "ok")
+            }
+            .fail { error in
                 XCTFail()
             }
-            .fail { error -> Int in
-                XCTAssertEqual(error, "ng")
-                return 999
-            }
-            .fail { error -> Void in
-                XCTAssertEqual(error, 999)
-            }
-            .finally {
+            .always {
                 ex.fulfill()
-        }
+            }
         
-        self.waitForExpectationsWithTimeout(10) { error in
+        self.waitForExpectationsWithTimeout(100) { error in
             XCTAssertNil(error)
         }
     }
@@ -132,10 +128,10 @@ class BasicTests: XCTestCase {
     func testThenIfFulfilled() {
         let ex = self.expectationWithDescription("wait")
         
-        let deferred = Deferred<String, String>()
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)) {
-            sleep(1)
+        let deferred = Deferred<String, String, Float>()
+        performInBackground(after: 0.1) {
             deferred.fulfill("ok")
+            return
         }
         
         deferred.promise
@@ -145,9 +141,9 @@ class BasicTests: XCTestCase {
                 
                 XCTAssertEqual(value!, "ok")
             }
-            .finally {
+            .always {
                 ex.fulfill()
-        }
+            }
         
         self.waitForExpectationsWithTimeout(10) { error in
             XCTAssertNil(error)
@@ -157,52 +153,22 @@ class BasicTests: XCTestCase {
     func testThenIfRejected() {
         let ex = self.expectationWithDescription("wait")
         
-        let deferred = Deferred<String, String>()
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)) {
-            sleep(1)
+        let deferred = Deferred<String, String, Float>()
+        performInBackground(after: 0.1) {
             deferred.reject("ng")
+            return
         }
         
         deferred.promise
-            .then { value, error -> Void in
+            .then { value, error in
                 XCTAssertNil(value)
                 XCTAssertNotNil(error)
                 
                 XCTAssertEqual(error!, "ng")
             }
-            .finally {
+            .always {
                 ex.fulfill()
-        }
-        
-        self.waitForExpectationsWithTimeout(10) { error in
-            XCTAssertNil(error)
-        }
-    }
-    
-    func testThenChainIfFulfilled() {
-        let ex = self.expectationWithDescription("wait")
-        
-        let deferred = Deferred<String, String>()
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)) {
-            sleep(1)
-            deferred.fulfill("ok")
-        }
-        
-        deferred.promise
-            .then { value, error -> (Int?, Int?) in
-                XCTAssertNotNil(value)
-                XCTAssertNil(error)
-                XCTAssertEqual(value!, "ok")
-                return (1, nil)
             }
-            .then { value, error -> Void in
-                XCTAssertNotNil(value)
-                XCTAssertNil(error)
-                XCTAssertEqual(value!, 1)
-            }
-            .finally {
-                ex.fulfill()
-        }
         
         self.waitForExpectationsWithTimeout(10) { error in
             XCTAssertNil(error)
@@ -212,29 +178,27 @@ class BasicTests: XCTestCase {
     func testDoneThenChainIfFulfilled() {
         let ex = self.expectationWithDescription("wait")
         
-        let deferred = Deferred<String, String>()
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)) {
-            sleep(1)
+        let deferred = Deferred<String, String, Float>()
+        performInBackground(after: 0.1) {
             deferred.fulfill("ok")
+            return
         }
         
         deferred.promise
-            .done { value -> String in
+            .done { value in
                 XCTAssertEqual(value, "ok")
-                return value
             }
-            .fail { error -> String in
+            .fail { error in
                 XCTFail()
-                return error
             }
-            .then { value, error -> Void in
+            .then { value, error in
                 XCTAssertNotNil(value)
                 XCTAssertNil(error)
                 XCTAssertEqual(value!, "ok")
             }
-            .finally {
+            .always {
                 ex.fulfill()
-        }
+            }
         
         self.waitForExpectationsWithTimeout(10) { error in
             XCTAssertNil(error)
@@ -244,43 +208,41 @@ class BasicTests: XCTestCase {
     func testPromiseChainIfFulfilled() {
         let ex = self.expectationWithDescription("wait")
         
-        let deferred = Deferred<String, String>()
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)) {
-            sleep(1)
+        let deferred = Deferred<String, String, Float>()
+        performInBackground(after: 0.1) {
             deferred.fulfill("ok")
+            return
         }
         
         deferred.promise
-            .done { (value: String) -> String in
+            .done { (value: String) in
                 XCTAssertEqual(value, "ok")
-                return value
             }
-            .fail { (error: String) -> String in
+            .fail { (error: String) in
                 XCTFail()
-                return error
             }
-            .then { (value: String?, error: String?) -> Promise<Int, Int> in
+            .then { (value: String?, error: String?) -> Promise<Int, Int, Float> in
                 if error != nil {
                     XCTFail()
-                    return Deferred<Int, Int>().reject(999).promise
+                    return Deferred<Int, Int, Float>().reject(999).promise
                 }
                 
-                let deferred2 = Deferred<Int, Int>()
-                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)) {
-                    sleep(1)
+                let deferred2 = Deferred<Int, Int, Float>()
+                self.performInBackground(after: 0.1) {
                     deferred2.fulfill(1)
+                    return
                 }
                 return deferred2.promise
             }
-            .done { (value: Int) -> Void in
+            .done { (value: Int) in
                 XCTAssertEqual(value, 1)
             }
-            .fail { (error: Int) -> Void in
+            .fail { (error: Int) in
                 XCTFail()
             }
-            .finally {
+            .always {
                 ex.fulfill()
-        }
+            }
         
         self.waitForExpectationsWithTimeout(10) { error in
             XCTAssertNil(error)
@@ -290,46 +252,120 @@ class BasicTests: XCTestCase {
     func testPromiseChainIfRejectedButComebackFulfill() {
         let ex = self.expectationWithDescription("wait")
         
-        let deferred = Deferred<String, String>()
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)) {
-            sleep(1)
+        let deferred = Deferred<String, String, Float>()
+        performInBackground(after: 0.1) {
             deferred.reject("ng")
+            return
         }
         
         deferred.promise
-            .done { (value: String) -> String in
+            .done { (value: String) in
                 XCTFail()
-                return value
             }
-            .fail { (error: String) -> String in
+            .fail { (error: String) in
                 XCTAssertEqual(error, "ng")
-                return error
             }
-            .then { (value: String?, error: String?) -> Promise<Int, Int> in
+            .then { (value: String?, error: String?) -> Promise<Int, Int, Float> in
                 if error != nil {
-                    return Deferred<Int, Int>().fulfill(1).promise
+                    return Deferred<Int, Int, Float>().fulfill(1).promise
                 }
                 
                 XCTFail()
-                let deferred2 = Deferred<Int, Int>()
-                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)) {
-                    sleep(1)
+                let deferred2 = Deferred<Int, Int, Float>()
+                self.performInBackground(after: 0.1) {
                     deferred2.fulfill(1)
+                    return
                 }
                 return deferred2.promise
             }
-            .done { (value: Int) -> Void in
+            .done { (value: Int) in
                 XCTAssertEqual(value, 1)
             }
-            .fail { (error: Int) -> Void in
+            .fail { (error: Int) in
                 XCTFail()
             }
-            .finally {
+            .always {
                 ex.fulfill()
-        }
+            }
         
         self.waitForExpectationsWithTimeout(10) { error in
             XCTAssertNil(error)
         }
+    }
+    
+    func testWhenIfFulfilled() {
+        let ex = self.expectationWithDescription("wait")
+        
+        let deferred1 = Deferred<String, String, Float>()
+        performInBackground(after: 0.1) {
+            deferred1.fulfill("ok1")
+            return
+        }
+        
+        let deferred2 = Deferred<String, String, Float>()
+        performInBackground(after: 0.2) {
+            deferred2.fulfill("ok2")
+            return
+        }
+        
+        let deferred3 = Deferred<String, String, Float>()
+        performInBackground(after: 0.3) {
+            deferred3.fulfill("ok3")
+            return
+        }
+        
+        Promise.when(deferred1.promise, deferred2.promise, deferred3.promise)
+            .progress { count, total in
+                println(String(count) + "/" + String(total))
+            }
+            .done { values in
+                println(values)
+            }
+            .always {
+                ex.fulfill()
+            }
+        
+        self.waitForExpectationsWithTimeout(100) { error in
+        }
+    }
+    
+    func testWhenIfRejectd() {
+        let ex = self.expectationWithDescription("wait")
+        
+        let deferred1 = Deferred<String, String, Float>()
+        performInBackground(after: 0.1) {
+            deferred1.fulfill("ok")
+            return
+        }
+        
+        let deferred2 = Deferred<String, String, Float>()
+        performInBackground(after: 0.2) {
+            deferred2.reject("ng")
+            return
+        }
+        
+        Promise.when(deferred1.promise, deferred2.promise)
+            .progress { count, total in
+                println(String(count) + "/" + String(total))
+            }
+            .done { values in
+                println(values)
+                XCTFail()
+            }
+            .fail { error in
+                XCTAssertEqual(error, "ng")
+            }
+            .always {
+                ex.fulfill()
+            }
+        
+        self.waitForExpectationsWithTimeout(100) { error in
+        }
+    }
+    
+    private func performInBackground(after delay: Double, _ handler: () -> Void) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(delay * Double(NSEC_PER_SEC))),
+            dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0),
+            handler)
     }
 }

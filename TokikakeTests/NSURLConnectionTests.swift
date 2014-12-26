@@ -25,13 +25,13 @@ class NSURLConnectionTests: XCTestCase {
         let ex = self.expectationWithDescription("wait")
         
         NSURLConnection.request("http://github.com", "GET")
-            .done { data -> Void in
+            .done { data in
                 println("done: " + String(data.length))
             }
-            .fail { error -> Void in
+            .fail { error in
                 println("fail: " + error.description)
             }
-            .finally {
+            .always {
                 ex.fulfill()
             }
         
