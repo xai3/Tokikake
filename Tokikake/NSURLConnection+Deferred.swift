@@ -25,7 +25,7 @@ extension NSURLConnection {
                 return
             }
             
-            deferred.fulfill(data!)
+            deferred.resolve(data!)
         }
         return deferred.promise
     }
