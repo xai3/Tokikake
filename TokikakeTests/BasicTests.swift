@@ -22,7 +22,7 @@ class BasicTests: XCTestCase {
     }
     
     func testSyncDone() {
-        Deferred<String, String, Int>().fulfill("ok").promise
+        Deferred<String, String, Int>().resolve("ok").promise
             .done { value in
                 XCTAssertEqual(value, "ok")
             }
@@ -50,7 +50,7 @@ class BasicTests: XCTestCase {
         
         let deferred = Deferred<String, String, Int>()
         performInBackground(after: 0.1) {
-            deferred.fulfill("ok")
+            deferred.resolve("ok")
             return
         }
         
@@ -103,7 +103,7 @@ class BasicTests: XCTestCase {
             for i in 0..<10 {
                 deferred.notify(i)
             }
-            deferred.fulfill("ok")
+            deferred.resolve("ok")
         }
         
         deferred.promise
@@ -125,12 +125,12 @@ class BasicTests: XCTestCase {
         }
     }
     
-    func testThenIfFulfilled() {
+    func testThenIfResolved() {
         let ex = self.expectationWithDescription("wait")
         
         let deferred = Deferred<String, String, Float>()
         performInBackground(after: 0.1) {
-            deferred.fulfill("ok")
+            deferred.resolve("ok")
             return
         }
         
@@ -175,12 +175,12 @@ class BasicTests: XCTestCase {
         }
     }
     
-    func testDoneThenChainIfFulfilled() {
+    func testDoneThenChainIfResolved() {
         let ex = self.expectationWithDescription("wait")
         
         let deferred = Deferred<String, String, Float>()
         performInBackground(after: 0.1) {
-            deferred.fulfill("ok")
+            deferred.resolve("ok")
             return
         }
         
@@ -205,12 +205,12 @@ class BasicTests: XCTestCase {
         }
     }
     
-    func testPromiseChainIfFulfilled() {
+    func testPromiseChainIfResolved() {
         let ex = self.expectationWithDescription("wait")
         
         let deferred = Deferred<String, String, Float>()
         performInBackground(after: 0.1) {
-            deferred.fulfill("ok")
+            deferred.resolve("ok")
             return
         }
         
@@ -229,7 +229,7 @@ class BasicTests: XCTestCase {
                 
                 let deferred2 = Deferred<Int, Int, Float>()
                 self.performInBackground(after: 0.1) {
-                    deferred2.fulfill(1)
+                    deferred2.resolve(1)
                     return
                 }
                 return deferred2.promise
@@ -249,7 +249,7 @@ class BasicTests: XCTestCase {
         }
     }
     
-    func testPromiseChainIfRejectedButComebackFulfill() {
+    func testPromiseChainIfRejectedButComebackResolve() {
         let ex = self.expectationWithDescription("wait")
         
         let deferred = Deferred<String, String, Float>()
@@ -267,13 +267,13 @@ class BasicTests: XCTestCase {
             }
             .then { (value: String?, error: String?) -> Promise<Int, Int, Float> in
                 if error != nil {
-                    return Deferred<Int, Int, Float>().fulfill(1).promise
+                    return Deferred<Int, Int, Float>().resolve(1).promise
                 }
                 
                 XCTFail()
                 let deferred2 = Deferred<Int, Int, Float>()
                 self.performInBackground(after: 0.1) {
-                    deferred2.fulfill(1)
+                    deferred2.resolve(1)
                     return
                 }
                 return deferred2.promise
@@ -293,24 +293,24 @@ class BasicTests: XCTestCase {
         }
     }
     
-    func testWhenIfFulfilled() {
+    func testWhenIfResolved() {
         let ex = self.expectationWithDescription("wait")
         
         let deferred1 = Deferred<String, String, Float>()
         performInBackground(after: 0.1) {
-            deferred1.fulfill("ok1")
+            deferred1.resolve("ok1")
             return
         }
         
         let deferred2 = Deferred<String, String, Float>()
         performInBackground(after: 0.2) {
-            deferred2.fulfill("ok2")
+            deferred2.resolve("ok2")
             return
         }
         
         let deferred3 = Deferred<String, String, Float>()
         performInBackground(after: 0.3) {
-            deferred3.fulfill("ok3")
+            deferred3.resolve("ok3")
             return
         }
         
@@ -334,7 +334,7 @@ class BasicTests: XCTestCase {
         
         let deferred1 = Deferred<String, String, Float>()
         performInBackground(after: 0.1) {
-            deferred1.fulfill("ok")
+            deferred1.resolve("ok")
             return
         }
         

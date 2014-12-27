@@ -20,8 +20,8 @@ public class Deferred<V, E, P> {
         _promise = Promise<V, E, P>()
     }
     
-    public func fulfill(value: V) -> Self {
-        promise.fulfill(value)
+    public func resolve(value: V) -> Self {
+        promise.resolve(value)
         return self
     }
     
@@ -37,7 +37,7 @@ public class Deferred<V, E, P> {
 }
 
 private enum State {
-    case Fulfilled
+    case Resolved
     case Rejected
     case Pending
 }
@@ -58,7 +58,7 @@ public class Promise<V, E, P> {
     
     private var state: State = .Pending
     
-    public var fulfilled: Bool { return state == .Fulfilled }
+    public var resolved: Bool { return state == .Resolved }
     public var rejected: Bool { return state == .Rejected }
     public var pending: Bool { return state == .Pending }
    
@@ -68,13 +68,13 @@ public class Promise<V, E, P> {
     internal init() {
     }
     
-    internal func fulfill(value: V) {
+    internal func resolve(value: V) {
         dispatch_async(queue) {
             if !self.pending {
                 return
             }
             self.value = value
-            self.state = .Fulfilled
+            self.state = .Resolved
             
             for handler in self.pendingHandlers {
                 handler()
@@ -124,7 +124,7 @@ public class Promise<V, E, P> {
     
     public func done(handler: DoneHandler) -> Self {
         handle {
-            if self.fulfilled {
+            if self.resolved {
                 handler(self.value!)
             }
         }
@@ -180,7 +180,7 @@ public class Promise<V, E, P> {
                     return
                 }
                 .done { value in
-                    deferred.fulfill(value)
+                    deferred.resolve(value)
                     return
                 }
                 .fail { error in
@@ -213,7 +213,7 @@ public class Promise<V, E, P> {
                         }
                         
                         let values = promises.map { $0.value! }
-                        deferred.fulfill(values)
+                        deferred.resolve(values)
                         return
                     }
                 }
