@@ -11,13 +11,13 @@ Tokikae is a [JQuery.Deferred](http://api.jquery.com/category/deferred-object/)-
 
 ### Basic
 
-- `promise.done` is called by `deferred.fulfill`.
+- `promise.done` is called by `deferred.resolve`.
 - `promise.fail` is called by `deferred.reject`.
 
 ```swift
 let deferred = Deferred<String, String, Float>()
 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)) {
-    deferred.fulfill("ok")
+    deferred.resolve("ok")
 //    deferred.reject("ng")
 }
 
@@ -31,13 +31,13 @@ deferred.promise
 ```
 
 
-- `promise.then` is called by `deferred.fulfill` or `deferred.reject`.
+- `promise.then` is called by `deferred.resolve` or `deferred.reject`.
 - `promise.always` is always called.
 
 ```swift
 let deferred = Deferred<String, String, Float>()
 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)) {
-//    deferred.fulfill("ok")
+//    deferred.resolve("ok")
     deferred.reject("ng")
 }
 
@@ -61,14 +61,14 @@ dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0))
     for i in 0..<10 {
         deferred.notify(i)
     }
-    deferred.fulfill("ok")
+    deferred.resolve("ok")
 }
 
 deferred.promise
-    .progress { (progress: Float) in
+    .progress { (progress: Int) in
         // do something
     }
-    .done { value in
+    .done { (value: String) in
         // do something
     }
 ```
@@ -81,7 +81,7 @@ It is possible to return the new promise in `then`, so that you can be chained t
 ```swift
 let deferred = Deferred<String, String, Float>()
 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)) {
-    deferred.fulfill("ok")
+    deferred.resolve("ok")
 }
 
 deferred.promise
@@ -92,7 +92,7 @@ deferred.promise
         
         let deferred2 = Deferred<Int, Int, Float>()
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)) {
-            deferred2.fulfill(1)
+            deferred2.resolve(1)
         }
         return deferred2.promise
     }
@@ -115,12 +115,12 @@ Using `when`, it is possible to wait for the multiple promise completion.
 ```swift
 let deferred1 = Deferred<String, String, Float>()
 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)) {
-    deferred1.fulfill("ok1")
+    deferred1.resolve("ok1")
 }
 
 let deferred2 = Deferred<String, String, Float>()
 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)) {
-    deferred2.fulfill("ok2")
+    deferred2.resolve("ok2")
 }
 
 Promise.when(deferred1.promise, deferred2.promise)
