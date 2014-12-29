@@ -1,6 +1,6 @@
 # Tokikake
 
-Tokikae is a [JQuery.Deferred](http://api.jquery.com/category/deferred-object/)-like API written in Swift.
+Tokikake is a [JQuery.Deferred](http://api.jquery.com/category/deferred-object/)-like API written in Swift.
 
 ## Requirements
 
