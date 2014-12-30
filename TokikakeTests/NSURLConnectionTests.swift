@@ -38,4 +38,24 @@ class NSURLConnectionTests: XCTestCase {
         self.waitForExpectationsWithTimeout(10) { error -> Void in
         }
     }
+	
+	func testImage() {
+		let ex = self.expectationWithDescription("wait")
+		
+		NSURLConnection.request("https://www.google.co.jp/images/srpr/logo11w.png")
+			.done { (image: UIImage) in
+				println("done: " + image.description)
+				XCTAssertTrue(image.size != CGSizeZero)
+			}
+			.fail { error in
+				println("fail: " + error.description)
+				XCTFail()
+			}
+			.always {
+				ex.fulfill()
+		}
+		
+		self.waitForExpectationsWithTimeout(10) { error -> Void in
+		}
+	}
 }
