@@ -39,7 +39,7 @@ class NSURLConnectionTests: XCTestCase {
         }
     }
 	
-	func testImage() {
+	func testImageIfResolved() {
 		let ex = self.expectationWithDescription("wait")
 		
 		NSURLConnection.request("https://www.google.co.jp/images/srpr/logo11w.png")
@@ -58,4 +58,23 @@ class NSURLConnectionTests: XCTestCase {
 		self.waitForExpectationsWithTimeout(10) { error -> Void in
 		}
 	}
+	
+	func testImageIfRejected() {
+		let ex = self.expectationWithDescription("wait")
+		
+		NSURLConnection.request("http://google.com/invalid.jpg")
+			.done { (image: UIImage) in
+				XCTFail()
+			}
+			.fail { error in
+				println("fail: " + error.localizedDescription)
+			}
+			.always {
+				ex.fulfill()
+			}
+		
+		self.waitForExpectationsWithTimeout(10) { error -> Void in
+		}
+	}
+	
 }
