@@ -77,4 +77,41 @@ class NSURLConnectionTests: XCTestCase {
 		}
 	}
 	
+	func testJsonIfResolved() {
+		let ex = self.expectationWithDescription("wait")
+		
+		NSURLConnection.request("https://api.github.com/")
+			.done { (json: AnyObject) in
+				let json = json as [String: AnyObject]
+				XCTAssertEqual(json["current_user_url"] as String, "https://api.github.com/user")
+			}
+			.fail { error in
+				println("fail: " + error.description)
+				XCTFail()
+			}
+			.always {
+				ex.fulfill()
+		}
+		
+		self.waitForExpectationsWithTimeout(10) { error -> Void in
+		}
+	}
+	
+	func testJsonIfRejected() {
+		let ex = self.expectationWithDescription("wait")
+		
+		NSURLConnection.request("https://google.com/")
+			.done { (json: AnyObject) in
+				XCTFail()
+			}
+			.fail { error in
+				println("fail: " + error.description)
+			}
+			.always {
+				ex.fulfill()
+		}
+		
+		self.waitForExpectationsWithTimeout(10) { error -> Void in
+		}
+	}
 }
