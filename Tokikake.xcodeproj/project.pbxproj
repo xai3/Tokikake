@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4BBFD2C81A95C7A0008366BA /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BBFD2C71A95C7A0008366BA /* MediaPlayer.framework */; };
+		4BBFD2E11A96B482008366BA /* AVAudioPlayer+Deferred.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BBFD2E01A96B482008366BA /* AVAudioPlayer+Deferred.swift */; };
+		4BBFD2E31A96B4A5008366BA /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BBFD2E21A96B4A5008366BA /* AVFoundation.framework */; };
 		4BEEACA21A4BAC8B00F70A76 /* Tokikake.h in Headers */ = {isa = PBXBuildFile; fileRef = 4BEEACA11A4BAC8B00F70A76 /* Tokikake.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4BEEACA81A4BAC8B00F70A76 /* Tokikake.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BEEAC9C1A4BAC8B00F70A76 /* Tokikake.framework */; };
 		4BEEACAF1A4BAC8B00F70A76 /* BasicTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BEEACAE1A4BAC8B00F70A76 /* BasicTests.swift */; };
@@ -26,6 +29,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4BBFD2C71A95C7A0008366BA /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		4BBFD2E01A96B482008366BA /* AVAudioPlayer+Deferred.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AVAudioPlayer+Deferred.swift"; sourceTree = "<group>"; };
+		4BBFD2E21A96B4A5008366BA /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		4BEEAC9C1A4BAC8B00F70A76 /* Tokikake.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Tokikake.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4BEEACA01A4BAC8B00F70A76 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4BEEACA11A4BAC8B00F70A76 /* Tokikake.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Tokikake.h; sourceTree = "<group>"; };
@@ -42,6 +48,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4BBFD2E31A96B4A5008366BA /* AVFoundation.framework in Frameworks */,
+				4BBFD2C81A95C7A0008366BA /* MediaPlayer.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -56,12 +64,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4BBFD2DF1A96B444008366BA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4BBFD2E21A96B4A5008366BA /* AVFoundation.framework */,
+				4BBFD2C71A95C7A0008366BA /* MediaPlayer.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		4BEEAC921A4BAC8B00F70A76 = {
 			isa = PBXGroup;
 			children = (
 				4BEEAC9E1A4BAC8B00F70A76 /* Tokikake */,
 				4BEEACAB1A4BAC8B00F70A76 /* TokikakeTests */,
 				4BEEAC9D1A4BAC8B00F70A76 /* Products */,
+				4BBFD2DF1A96B444008366BA /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -80,6 +98,7 @@
 				4BEEACA11A4BAC8B00F70A76 /* Tokikake.h */,
 				4BEEACBA1A4BACAE00F70A76 /* Deferred.swift */,
 				4BEEACF11A4C04E200F70A76 /* NSURLConnection+Deferred.swift */,
+				4BBFD2E01A96B482008366BA /* AVAudioPlayer+Deferred.swift */,
 				4BEEAC9F1A4BAC8B00F70A76 /* Supporting Files */,
 			);
 			path = Tokikake;
@@ -219,6 +238,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4BEEACBB1A4BACAE00F70A76 /* Deferred.swift in Sources */,
+				4BBFD2E11A96B482008366BA /* AVAudioPlayer+Deferred.swift in Sources */,
 				4BEEACF21A4C04E200F70A76 /* NSURLConnection+Deferred.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
