@@ -26,10 +26,10 @@ class NSURLConnectionTests: XCTestCase {
         
         NSURLConnection.request("http://github.com", "GET")
             .done { data in
-                println("done: " + String(data.length))
+                print("done: " + String(data.length))
             }
             .fail { error in
-                println("fail: " + error.description)
+                print("fail: " + error.description)
             }
             .always {
                 ex.fulfill()
@@ -44,11 +44,11 @@ class NSURLConnectionTests: XCTestCase {
 		
 		NSURLConnection.request("https://www.google.co.jp/images/srpr/logo11w.png")
 			.done { (image: UIImage) in
-				println("done: " + image.description)
+				print("done: " + image.description)
 				XCTAssertTrue(image.size != CGSizeZero)
 			}
 			.fail { error in
-				println("fail: " + error.description)
+				print("fail: " + error.description)
 				XCTFail()
 			}
 			.always {
@@ -67,7 +67,7 @@ class NSURLConnectionTests: XCTestCase {
 				XCTFail()
 			}
 			.fail { error in
-				println("fail: " + error.localizedDescription)
+				print("fail: " + error.localizedDescription)
 			}
 			.always {
 				ex.fulfill()
@@ -82,11 +82,11 @@ class NSURLConnectionTests: XCTestCase {
 		
 		NSURLConnection.request("https://api.github.com/")
 			.done { (json: AnyObject) in
-				let json = json as [String: AnyObject]
-				XCTAssertEqual(json["current_user_url"] as String, "https://api.github.com/user")
+				let json = json as! [String: AnyObject]
+				XCTAssertEqual(json["current_user_url"] as? String, "https://api.github.com/user")
 			}
 			.fail { error in
-				println("fail: " + error.description)
+				print("fail: " + error.description)
 				XCTFail()
 			}
 			.always {
@@ -105,7 +105,7 @@ class NSURLConnectionTests: XCTestCase {
 				XCTFail()
 			}
 			.fail { error in
-				println("fail: " + error.description)
+				print("fail: " + error.description)
 			}
 			.always {
 				ex.fulfill()

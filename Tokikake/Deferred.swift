@@ -48,10 +48,10 @@ public class Promise<V, E, P> {
     
     typealias Handler = () -> ()
     
-    typealias DoneHandler = (V) -> ()
-    typealias FailHandler = (E) -> ()
-    typealias ThenHandler = (V?, E?) -> ()
-    typealias ProgressHandler = (P) -> ()
+    public typealias DoneHandler = (V) -> ()
+    public typealias FailHandler = (E) -> ()
+    public typealias ThenHandler = (V?, E?) -> ()
+    public typealias ProgressHandler = (P) -> ()
     
     var value: V?
     var error: E?

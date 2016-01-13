@@ -108,7 +108,7 @@ class BasicTests: XCTestCase {
         
         deferred.promise
             .progress { progress in
-                println("progress: " + String(progress))
+                print("progress: " + String(progress))
             }
             .done { value in
                 XCTAssertEqual(value, "ok")
@@ -316,10 +316,10 @@ class BasicTests: XCTestCase {
         
         Promise.when(deferred1.promise, deferred2.promise, deferred3.promise)
             .progress { count, total in
-                println(String(count) + "/" + String(total))
+                print(String(count) + "/" + String(total))
             }
             .done { values in
-                println(values)
+                print(values)
             }
             .always {
                 ex.fulfill()
@@ -346,10 +346,10 @@ class BasicTests: XCTestCase {
         
         Promise.when(deferred1.promise, deferred2.promise)
             .progress { count, total in
-                println(String(count) + "/" + String(total))
+                print(String(count) + "/" + String(total))
             }
             .done { values in
-                println(values)
+                print(values)
                 XCTFail()
             }
             .fail { error in
