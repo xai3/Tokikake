@@ -12,6 +12,7 @@ import Tokikake
 
 extension NSURLConnection {
     
+    
     public class func request(url: String, _ method: String = "GET", _ body: NSData? = nil) -> Promise<NSData, NSError, Float> {
         let deferred = Deferred<NSData, NSError, Float>()
         
@@ -63,13 +64,14 @@ extension NSURLConnection {
 		let promise: Promise<NSData, NSError, Float> = request(url, method, body)
 		promise
 			.done { data in
-				var error: NSError? = nil
-				let json: AnyObject? = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.AllowFragments, error: &error)
-				
-				if let error = error {
-					deferred.reject(error)
-					return
-				}
+                let json: AnyObject?
+                do {
+                    json = try NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments)
+                } catch {
+                    let error: NSError = NSError(domain: "", code: 999, userInfo: [NSLocalizedDescriptionKey: "JSON Serialization Error"])
+                    deferred.reject(error)
+                    return
+                }
 				
 				if json == nil {
 					deferred.reject(self.invalidDataError())
